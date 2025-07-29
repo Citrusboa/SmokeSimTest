@@ -1,36 +1,41 @@
+# Compiler and target
 CC = g++
 TARGET = main
 
+# Release / Debug flags
 RELEASE := 1
 ifeq ($(RELEASE),1)
-CXXFLAGS += -O3 
+    CXXFLAGS += -O3
 else
-CXXFLAGS += -g
+    CXXFLAGS += -g
 endif
 
-#CXXFLAGS += -DENABLE_WRITE_FILE
+# Include paths
+INCLUDE_PATH = -I/mingw64/include
 
-LIBS_PATH = -L/usr/local/lib/OpenMesh
-LIBS_PATH += -L/usr/local/lib
+# Linker libraries
+LIBS = -lglew32 -lglfw3 -lopengl32 -lglu32
 
-LIBS = -lGLEW -lGL -lGLU -lglfw3 -lX11  -lXrandr -lpthread -lXi
-LIBS += -lOpenMeshCore -lOpenMeshTools
+# Eigen is header-only — nothing to link
+CXXFLAGS += -I/mingw64/include/eigen3
 
+# Source files
 SRC := $(shell find . -name "*.cpp")
 
-all:
-	@make $(TARGET)
-
-
+# Object rule
 %.o : %.cpp
 	@echo "Compiling $< ..."
-	@$(CC) $(LIBS_PATH) $(LIBS) $(CXXFLAGS) -o $@ -c $<
+	@$(CC) $(INCLUDE_PATH) $(CXXFLAGS) -o $@ -c $<
 
+# Final target
 $(TARGET): $(SRC:.cpp=.o)
 	@echo "Linking $@..."
-	@$(CC) -o $@ $(SRC:.cpp=.o) $(LIBS_PATH) $(LIBS) 
+	@$(CC) -o $@ $(SRC:.cpp=.o) $(LIBS)
 
-.PHONY: clean
+.PHONY: all clean
+
+all: $(TARGET)
+
 clean:
 	\rm -f *.o
 	\rm -f $(TARGET)

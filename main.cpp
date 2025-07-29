@@ -15,6 +15,7 @@ int main(int argc, char **argv) {
 	::g_controller = new Controller(argc, argv, WINDOW_NAME);
 	Object* object = new Fluid;
 
+
 #if 0
 	//enable shader
 	object->RegisterShader(VERTEX_PROG_NAME1, GL_VERTEX_SHADER);

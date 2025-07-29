@@ -34,6 +34,7 @@ const float* Fluid::GetDensity()
 	return _density;
 }
 
+
 bool Fluid::LightSelected(double mouseX, double mouseY)
 {
 	GLdouble mvMatrix[16], projMatrix[16];
@@ -384,11 +385,13 @@ void Fluid::GenerateSmoke()
 
 void Fluid::SimulateStep()
 {
-	GenerateSmoke();
+	// Using MAC Grid simulation
+	//macGrid.SimulateStep(DT, RES);
+	//macGrid.copyDensityToBuffer(_density, RES);
 
+	GenerateSmoke();
 	VelocityStep();
 	DensityStep();
-
 }
 
 

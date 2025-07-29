@@ -4,9 +4,10 @@
 #include "core.h"
 #include "object.h"
 #include "renderer.h"
+#include "mac_grid.h"
 
 #define DT  0.1				// time step
-#define RES 40			    // box resolution
+#define RES 30			    // box resolution
 #define N ((RES)-2)			// valid simulation area
 #define SIZE ((RES)*(RES)*(RES))
 
@@ -44,6 +45,7 @@ protected:
 	bool _isDrawSliceOutline;
 
 protected:
+	MACGrid macGrid;
 	// simulation methods
 	// beware: i changed stam's implementation from a destiation, source ordering
 	// of the parameters to source, destiation
